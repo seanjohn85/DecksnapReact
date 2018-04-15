@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './index.css';
+import cookie from "react-cookie";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+
+
+/*
+//login
+let url = 'http://www.decksnaps.com/decksnap/loginregister/login.php';
+let data = 'username=jk&password=jk';
+
+fetch(url, {
+method: 'POST',
+//prams ro get user data
+body: data,
+headers : {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Accept': 'application/json'
+   }
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => {
+console.log('Success:', response);
+console.log('name:', response.Login.Username);
+
+//req.session.user = response.Login.Username;
+//console.log('name:', req.session.user);
+});*/
+
+
+class App extends React.Component {
+  render (){
+
+    return <h1>The name {this.props.name} contains {this.props.name.length} characters!</h1>;
   }
 }
+
 
 export default App;
