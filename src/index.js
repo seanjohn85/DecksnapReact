@@ -1,9 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App'
-import Register from './Register'
+import React from "react";
+import ReactDOM from "react-dom";
+import Main from "./Components/Main";
+import "./index.css";
 
+
+
+
+//loods the main menu
 ReactDOM.render(
-  <Register />,
-  document.getElementById('root')
+  <Main/>,
+  document.getElementById("root")
 );
