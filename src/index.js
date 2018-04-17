@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Redirect} from "react-router-dom";
 import Main from "./Components/Main";
-//import { Button, Card, Row, Col } from 'react-materialize';
+import { Button, Card, Row, Col, SideNav } from 'react-materialize';
 import "./index.css";
 
 

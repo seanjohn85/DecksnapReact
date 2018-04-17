@@ -1,4 +1,6 @@
 import React from "react";
+import {Redirect} from "react-router-dom";
+import Card from "./Card"
 import OwlCarousel from 'react-owl-carousel';
 
 
@@ -6,37 +8,41 @@ import OwlCarousel from 'react-owl-carousel';
 class Cards extends React.Component {
   constructor(props) {
     super(props);
-    //state to hold cards
+    //state to page data
     this.state = {
+      //used to redirect if not logged in
+      redirect: false,
       cards: [],
       cat : [],
+      //owl OwlCarousel settind
       options: {
                loop: true,
                margin:20,
                nav:false,
                center:true,
+               animateOut: true,
+               //sets responsive values
                responsive:{
-                   0:{
-                       items:1
-                   },
-                   600:{
-                       items:2
-                   },
-                   1000:{
-                       items:3
-                   }
+                   0:{items:1},
+                   600:{items:2},
+                   1000:{items:3}
                }
            }
     };
   }
 
-
   componentWillMount() {
+
+    if(sessionStorage.getItem("userId")){
+      console.log(`userId is ${sessionStorage.getItem("userId")}`);
+    }else{
+     this.setState({redirect: true});
+    }
 
 
     let url = 'http://www.decksnaps.com/decksnap/cards/getcards.php';
     //later the user id willl be passed in here
-    let data = `userId=16&catId=3`;
+    let data = `userId=${sessionStorage.getItem("userId")}&catId=3`;
     //get the users cards form db
     fetch(url, {
     //post required by api
@@ -66,9 +72,21 @@ class Cards extends React.Component {
 
   render() {
 
+    if(this.state.redirect){
+      return(<Redirect to={'/login'}/>)
+    }
+
+
     const list = this.state.cards.map( (c) => {
       console.log(c.photo);
-            return <Card key={c.cardId} name={c.name} id={c.cardId} cat1={c.cat1} cat2={c.cat2} cat3={c.cat3} cat4={c.cat4} cat5={c.cat5} cat6={c.cat6} cust = {c.customCard} photo = {`../images/${c.photo}.jpg`}/>;
+      let pic;
+      if (c.customCard === '0'){
+        pic= `../images/${c.photo}.jpg`;
+      }else{
+        pic = `http://www.decksnaps.com/decksnap/cards/images/${c.photo}`;
+      }
+            return <Card key={c.cardId} name={c.name} id={c.cardId} cat1={c.cat1} cat2={c.cat2} cat3={c.cat3} cat4={c.cat4} cat5={c.cat5} cat6={c.cat6} cust = {c.customCard}
+            photo = {pic}/>;
 
         });
     return (
@@ -76,8 +94,6 @@ class Cards extends React.Component {
         <h1>Your cards are:</h1>
         <OwlCarousel
 	className="owl-theme" {...this.state.options}
-	 
-
 >
         {list}
         </OwlCarousel>
@@ -86,56 +102,5 @@ class Cards extends React.Component {
     );
   }
 }
-
-
-
-class Card extends React.Component {
-  render() {
-    return (
-      <div className="item superhero" >
-        <img alt={this.props.name} src={this.props.photo}/>
-        <h3>{this.props.name}</h3>
-        <div className="catLab" >
-          <h4>{this.props.cat1}</h4>
-          cat
-        </div>
-        <div className="catLab" >
-          <h4>{this.props.cat2}</h4>
-          cat
-        </div>
-        <div className="catLab" >
-          <h4>{this.props.cat3}</h4>
-          cat
-        </div>
-        <div className="catLab" >
-          <h4>{this.props.cat4}</h4>
-          cat
-        </div>
-        <div className="catLab" >
-          <h4>{this.props.cat5}</h4>
-          cat
-        </div>
-        <div className="catLab" >
-          <h4>{this.props.cat6}</h4>
-          cat
-        </div>
-
-
-
-
-      </div>
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
 
 export default Cards;

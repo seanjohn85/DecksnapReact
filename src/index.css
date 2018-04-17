@@ -34,14 +34,21 @@ body {
   font-family: 'Bangers', cursive;
   background-color: #2A99D9;
 }
+.superhero > img{
+  border: 2px solid #2c3E50;
+}
+
 
 .superhero > h3{
+
   text-align: center;
   margin-bottom: 30px;
   width: 100%;
   padding-right: 20px;
 
+
 }
+
 
 .catLab{
   width: 50%;
@@ -61,4 +68,9 @@ body {
 
 .catLab > h4{
   font-size: 2rem;
+}
+
+.catLab > p{
+  color: #2c3E50;
+  text-shadow: white;
 }

@@ -3,8 +3,17 @@ import {Route,NavLink,BrowserRouter} from "react-router-dom";
 import Home from "./Home";
 import Cards from "./Cards";
 import Login from "./Login";
+import Register from "./Register";
 
 class Main extends React.Component {
+
+  logout(){
+     sessionStorage.setItem("userId",'');
+     sessionStorage.clear();
+     <BrowserRouter>
+     <Route exact path="/" component={Login}/>
+     </BrowserRouter>
+   }
 
 
   render() {
@@ -19,7 +28,8 @@ class Main extends React.Component {
         <ul className="right hide-on-med-and-down">
         <li><NavLink exact to="/">Home</NavLink></li>
         <li><NavLink to="/cards">Cards</NavLink></li>
-        <li><NavLink to="/login">Login</NavLink></li>
+        <li><NavLink to="/register">Register</NavLink></li>
+        <li><button onClick ={this.logout}>LogOut</button></li>
         </ul>
 
         <ul id="nav-mobile" className="sidenav">
@@ -33,6 +43,7 @@ class Main extends React.Component {
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route path="/cards" component={Cards}/>
+            <Route path="/register" component={Register}/>
             <Route path="/login" component={Login}/>
           </div>
         </div>
