@@ -1,7 +1,10 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
-import Card from "./Card"
+import Card from "./Card";
+import {GetCards} from './ApiCalls/GetCards'
 import OwlCarousel from 'react-owl-carousel';
+import update from 'immutability-helper';
+import axios from 'axios';
 
 
 //view cards screen
@@ -13,7 +16,7 @@ class Cards extends React.Component {
       //used to redirect if not logged in
       redirect: false,
       cards: [],
-      cat : [],
+      cat : "super",
       //owl OwlCarousel settind
       options: {
                loop: true,
@@ -29,45 +32,40 @@ class Cards extends React.Component {
                }
            }
     };
+
+      this.actors = this.actors.bind(this);
   }
 
   componentWillMount() {
-
+    //ensure user is logged in other wise redirect
     if(sessionStorage.getItem("userId")){
       console.log(`userId is ${sessionStorage.getItem("userId")}`);
     }else{
      this.setState({redirect: true});
     }
 
-
-    let url = 'http://www.decksnaps.com/decksnap/cards/getcards.php';
     //later the user id willl be passed in here
     let data = `userId=${sessionStorage.getItem("userId")}&catId=3`;
     //get the users cards form db
-    fetch(url, {
-    //post required by api
-    method: 'POST',
-    //data for request
-    body: data,
-    //sets send recieve datatypes
-    headers : {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json'
-       }
-    }).then(response => {
-      if(response.ok) return response.json();
-      throw new Error('Request failed.');
-    })
-    .then(data => {
-      console.log(data);
-      this.setState({cards: data.Cards});
-      console.log(this.state.cards);
-    })
-    .catch(error => {
-      console.log(error);
+    GetCards('cards', data).then((response) => {
+
+      this.setState({cards: response.Cards});
     });
+
     }
 
+    actors(){
+      //later the user id willl be passed in here
+      let data = `userId=${sessionStorage.getItem("userId")}&catId=1`;
+      //get the users cards form db
+      GetCards('cards', data).then((response) => {
+
+        console.log(response.Cards);
+
+        this.setState({cards: response.Cards});
+      });
+
+    }
 
 
   render() {
@@ -92,11 +90,10 @@ class Cards extends React.Component {
     return (
       <div>
         <h1>Your cards are:</h1>
-        <OwlCarousel
-	className="owl-theme" {...this.state.options}
->
-        {list}
+        <OwlCarousel className="owl-theme" {...this.state.options}>
+          {list}
         </OwlCarousel>
+        <button onClick ={this.actors}>Actors</button>
       </div>
 
     );
