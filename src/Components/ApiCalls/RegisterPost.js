@@ -19,4 +19,7 @@ export function RegisterPost(type, cardsRequested) {
             .then(response => resolve(response))
             .catch(error => reject(error))
     });
+
+
+    
 }

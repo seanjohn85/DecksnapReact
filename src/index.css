@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Bangers');
 
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+
 body {
   margin: 0;
   padding: 0;
@@ -28,24 +30,22 @@ body {
   z-index: 1;
 
 }
-.superhero{
+.SuperHeros{
   color: white;
   text-shadow: 2px 2px #2c3E50;
   font-family: 'Bangers', cursive;
   background-color: #2A99D9;
 }
-.superhero > img{
+.SuperHeros > img{
   border: 2px solid #2c3E50;
 }
 
 
-.superhero > h3{
-
+.SuperHeros > h3{
   text-align: center;
   margin-bottom: 30px;
   width: 100%;
   padding-right: 20px;
-
 
 }
 
@@ -56,6 +56,10 @@ body {
   text-align: center;
   min-height: 50px;
   border-bottom: 2px solid #2c3E50;
+}
+.Actors > .catLab{
+
+  border-bottom: 2px solid #c5b357;
 }
 
 .catLab:nth-child(even) {
@@ -73,4 +77,34 @@ body {
 .catLab > p{
   color: #2c3E50;
   text-shadow: white;
+}
+
+/*actors card styles*/
+.Actors{
+  background-color: #34291c;
+  font-family: 'Great Vibes', cursive;
+  color: #c5b357;
+  text-shadow: .5px .2px white;
+}
+.Actors > img{
+  border: 2px solid #c5b357;
+}
+
+.Actors > h3{
+  text-align: center;
+  font-size: 1.92rem;
+  color: #c5b357;
+  margin-bottom: 30px;
+  width: 100%;
+  padding-right: 20px;
+  text-shadow: .6px .6px white;
+}
+
+.Actors > .catLab:nth-child(even) {
+    border-left: 2px solid #c5b357;
+}
+
+
+.catLab:nth-child(7), .catLab:nth-child(8) {
+    border-bottom: none;
 }

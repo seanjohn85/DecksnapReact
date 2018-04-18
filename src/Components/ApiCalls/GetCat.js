@@ -1,8 +1,8 @@
-//function to get a users cards from the server
-export function GetCards(type, registerData) {
+//function to get a cat by id from the server
+export function GetCat(type, id) {
 
     //server api address
-    let url = 'http://www.decksnaps.com/decksnap/cards/getcards.php';
+    let url = "http://www.decksnaps.com/decksnap/cards/getcatbyid.php"
 
     //sets a promise to ensure function has a return... needed as function is async
     return new Promise((resolve, reject) => {
@@ -10,7 +10,7 @@ export function GetCards(type, registerData) {
         fetch(url, {
                 method: 'POST',
                 //this data was passed in to this function
-                body: registerData,
+                body: id,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept': 'application/json'
@@ -21,6 +21,4 @@ export function GetCards(type, registerData) {
             .catch(error => reject(error))
     });
 
-
-    
 }
