@@ -3,10 +3,10 @@ export default function reducer (state ={
   userId: ""
 }, action){
   if(action.type === "CHANGE_USERNAME"){
-    return {...state, userName : action.newValue};
+    return {...state, userName : action.val};
   }
   if(action.type === "CHANGE_ID"){
-    return {...state, userId: action.newValue};
+    return {...state, userId: action.val};
   }
   return state
 }

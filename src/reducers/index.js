@@ -1,4 +1,4 @@
-/*import {combineReducers} from 'redux';
+import {combineReducers} from 'redux';
 
 import user from "./userReducer";
 import test from "./testReducer";
@@ -7,9 +7,9 @@ export default ({
   user,
   test
 })
-*/
 
-import { combineReducers } from 'redux';
+
+/*import { combineReducers } from 'redux';
 
 const userReducer = (state = "john", action) =>{
   if(action.type === "CHANGE_USERNAME"){
@@ -29,4 +29,4 @@ const rootReducer = combineReducers({
 });
 
 
-export default rootReducer;
+export default rootReducer;*/

@@ -9,7 +9,7 @@ class Register extends React.Component {
     this.state = {username: '', password: '', email: '',    dob: '', error : "", redirect: false};
 
     // This binding is necessary to make `this` work in the callback
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
