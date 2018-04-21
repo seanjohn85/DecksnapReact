@@ -4,8 +4,21 @@ import Home from "./Home";
 import Cards from "./Cards";
 import Login from "./Login";
 import Register from "./Register";
+import {connect} from "react-redux";
+import {setUserName, setUserId} from "../actions";
+
+connect((store) =>{
+  return{
+    userName: store.userName.name,
+    userId: store.userId.id
+  };
+})
 
 class Main extends React.Component {
+
+  componentWillMount(){
+    this.props.dispatch(setUserName("John"))
+  }
 
   logout(){
      sessionStorage.setItem("userId",'');
@@ -17,10 +30,12 @@ class Main extends React.Component {
 
 
   render() {
+    console.log(`test ${this.props.userId}`);
     return (
+
       <BrowserRouter>
         <div>
-
+          <h1>{this.props.userName}</h1>
         <div className="navbar-fixed">
     <nav>
       <div className="nav-wrapper container">
@@ -53,4 +68,11 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+
+function mapStateToProps(state) {
+  return {
+    userName: state.name
+  }
+}
+
+export default connect(mapStateToProps)(Main);
