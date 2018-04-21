@@ -4,6 +4,7 @@ import Card from "./Card";
 import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
 import OwlCarousel from 'react-owl-carousel';
+import user from "./User";
 
 
 
@@ -40,8 +41,8 @@ class Cards extends React.Component {
 
   componentWillMount() {
     //ensure user is logged in other wise redirect
-    if(sessionStorage.getItem("userId")){
-      console.log(`userId is ${sessionStorage.getItem("userId")}`);
+    if(user.user.userId){
+      console.log(`userId is ${user.user.userId}`);
     }else{
      this.setState({redirect: true});
     }
@@ -53,7 +54,7 @@ class Cards extends React.Component {
 
     superhero(){
       //later the user id willl be passed in here
-      let data = `userId=${sessionStorage.getItem("userId")}&catId=3`;
+      let data = `userId=${user.user.userId}&catId=3`;
       //get Cat from DB
       GetCat('cat', 'catId=3').then((response) => {
         console.log(response.Categories.Cat);
@@ -68,7 +69,7 @@ class Cards extends React.Component {
 
     actors(){
       //later the user id willl be passed in here
-      let data = `userId=${sessionStorage.getItem("userId")}&catId=1`;
+      let data = `userId=${user.user.userId}&catId=1`;
       //get Cat from DB
       GetCat('cat', 'catId=1').then((response) => {
         this.setState({cat: response.Categories.Cat});
@@ -83,9 +84,9 @@ class Cards extends React.Component {
 
   render() {
 
-    if(this.state.redirect){
+    /*if(this.state.redirect){
       return(<Redirect to={'/login'}/>)
-    }
+    }*/
 
 
     const list = this.state.cards.map( (c) => {

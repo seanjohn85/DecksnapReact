@@ -1,10 +1,12 @@
 import {EventEmitter} from "events";
+import Dispatcher from "./Dispatcher";
+
 
 class User extends EventEmitter{
   constructor(){
     super()
     this.user ={
-      userName : "john",
+      userName : "",
       userId : "",
       gameMode : false
     }
@@ -31,54 +33,22 @@ class User extends EventEmitter{
     this.emit("gameOff");
   }
 
-  getUserName(){
-    return this.user.userName;
+  handleActions(action){
+    console.log("action recieved", action);
+    switch (action.type) {
+      case "LOGIN":{
+        this.login(action.userName, action.userId);
+        break;
+      }case "LOGOUT":{
+        this.logout();
+        break;
+      }
+    }
   }
-
-  getUserId(){
-    return this.user.userId;
-  }
-
 }
 
-const user = new User;
+const user = new User();
+Dispatcher.register(user.handleActions.bind(user));
 
 
 export default user;
-
-
-/*import React from "react";
-import Main from "./Main";
-
-class User extends React.Component {
-
-  constructor(props) {
-    super(props);
-    //state to page data
-    this.state = {
-      userName : "John",
-      userId : ""
-    };
-      //bind functions to change loaded cards
-      this.login = this.login.bind(this);
-
-  }
-
-
-  login(){
-    this.setState({userName: "John"});
-  }
-
-  render() {
-
-
-    return(
-      <div>
-        <Main/>
-      </div>
-    );
-
-  }
-}
-
-export default User;*/

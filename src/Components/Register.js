@@ -1,7 +1,8 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
-import {RegisterPost} from './ApiCalls/RegisterPost'
-
+import {RegisterPost} from './ApiCalls/RegisterPost';
+import user from "./User";
+import * as UserActions from "./actions/UserActions";
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +10,7 @@ class Register extends React.Component {
     this.state = {username: '', password: '', email: '',    dob: '', error : "", redirect: false};
 
     // This binding is necessary to make `this` work in the callback
-    this.handleChange = this.handleChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -18,13 +19,16 @@ class Register extends React.Component {
   }
 
   //stores the elements when the user change sthe data in the form
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  handleInputChange(event) {
+   const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+   const name = target.name;
+
+    console.log(`Input name ${name}. Input value ${value}.`);
+
     this.setState({
-      [name]: value
-    });
+     [name]: value
+   });
   }
 
 //triggered when the user hits the submit button
@@ -39,10 +43,12 @@ class Register extends React.Component {
       }
       //successiful login, session created and page redirected
       else{
-        sessionStorage.setItem('userName', response.Register.Username);
-        sessionStorage.setItem('userId', response.Register.UserId);
+        UserActions.login(response.Register.Username, response.Register.UserId);
+        //sessionStorage.setItem('userName', response.Register.Username);
+        //sessionStorage.setItem('userId', response.Register.UserId);
         console.log(`Name ${response.Register.Username}`);
         console.log(`id ${response.Register.UserId}`);
+
         this.setState({redirect: true});
       }
     });
@@ -52,13 +58,13 @@ class Register extends React.Component {
 
   render() {
     //redirect if the user is logged in
-    if (this.state.redirect) {
+  /*  if (this.state.redirect) {
       return (<Redirect to={'/home'}/>)
-    }
+    }*/
 
-    if(sessionStorage.getItem('userId')){
+    /*if(sessionStorage.getItem('userId')){
       return (<Redirect to={'/home'}/>)
-    }
+    }*/
     //return the html input form
     return (
       <form onSubmit={this.handleSubmit}>

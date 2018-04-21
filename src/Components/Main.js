@@ -5,6 +5,7 @@ import Cards from "./Cards";
 import Login from "./Login";
 import Register from "./Register";
 import user from "./User";
+import * as UserActions from "./actions/UserActions";
 
 class Main extends React.Component {
   constructor(){
@@ -13,16 +14,18 @@ class Main extends React.Component {
       loggedIn : false,
       gameMode : false,
     }
+    //UserActions.login("jow", 3);
+  }
+  componentWillMount(){
+    user.on("loggedIn", () => {
+      this.setState({loggedIn: true})
+    });
+
   }
 
-
-
-
-
-
   logout(){
-     sessionStorage.setItem("userId",'');
-     sessionStorage.clear();
+     //sessionStorage.setItem("userId",'');
+     //sessionStorage.clear();
      <BrowserRouter>
      <Route exact path="/" component={Login}/>
      </BrowserRouter>
@@ -30,13 +33,14 @@ class Main extends React.Component {
 
 
   render() {
-user.user.userName = "lish";
+
     console.log(`test ${user.user.userName}`);
+    console.log(`test ${user.user.userId}`);
     return (
 
       <BrowserRouter>
         <div>
-          <h1>{user.user.userName}</h1>
+
         <div className="navbar-fixed">
     <nav>
       <div className="nav-wrapper container">
