@@ -1,6 +1,7 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
 import {LoginPost} from './ApiCalls/LoginPost';
+import Home from "./Home";
 
 import user from "./User";
 import * as UserActions from "./actions/UserActions";
@@ -18,6 +19,9 @@ class Login extends React.Component {
 
   componentWillMount() {
 
+    user.on("loggedIn", () => {
+        this.setState({redirect: true})
+      });
   }
 
   //stores the elements when the user change sthe data in the form
@@ -47,10 +51,6 @@ class Login extends React.Component {
       //successiful login, session created and page redirected
       else{
         UserActions.login(response.Login.Username, response.Login.UserId);
-
-        //console.log(`Name ${response.Register.Username}`);
-        //console.log(`id ${response.Register.UserId}`);
-
         //this.setState({redirect: true});
       }
     });

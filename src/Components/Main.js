@@ -19,19 +19,20 @@ class Main extends React.Component {
     var socket = io.connect('http://159.65.85.150');
   }
   componentWillMount(){
-  /*  user.on("loggedIn", () => {
+    user.on("loggedIn", () => {
+      console.log("a user logged in");
       this.setState({loggedIn: true})
     });
 
     user.on("loggedout", () => {
       console.log("logged Out");
       this.setState({loggedIn: false})
-    });*/
+    });
 
   }
 
   logout(){
-     UserActions.login("", "");
+     UserActions.logout();
      <BrowserRouter>
      <Route exact path="/" component={Login}/>
      </BrowserRouter>
