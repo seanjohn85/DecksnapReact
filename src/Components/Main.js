@@ -6,8 +6,8 @@ import Login from "./Login";
 import Register from "./Register";
 import user from "./User";
 import * as UserActions from "./actions/UserActions";
-import io from 'socket.io-client';
 import { Button, Card, Row, Col, SideNav, Navbar, NavItem} from 'react-materialize';
+import manager from "./SocketManager";
 
 class Main extends React.Component {
   constructor(){
@@ -16,12 +16,14 @@ class Main extends React.Component {
       loggedIn : false,
       gameMode : false,
     }
-    var socket = io.connect('http://159.65.85.150');
+
   }
   componentWillMount(){
     user.on("loggedIn", () => {
       console.log("a user logged in");
-      this.setState({loggedIn: true})
+      this.setState({loggedIn: true});
+      manager.connectWithUserId(parseInt(user.user.userId));
+
     });
 
     user.on("loggedout", () => {
