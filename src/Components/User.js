@@ -8,6 +8,7 @@ class User extends EventEmitter{
     this.user ={
       userName : "",
       userId : "",
+      game: {},
       gameMode : false
     }
   }
@@ -24,23 +25,32 @@ class User extends EventEmitter{
     this.emit("loggedout");
   }
   playGame(){
-    this.gameMode = true;
+    this.user.gameMode = true;
     this.emit("gameOn");
   }
 
   quitGame(){
-    this.gameMode = true;
+    this.user.gameMode = false;
     this.emit("gameOff");
+  }
+  startGame(game){
+    this.user.game = game;
+    console.log(game);
+    this.emit("gameDetails");
   }
 
   handleActions(action){
-    console.log("action recieved", action);
+    console.log("action recieved");
     switch (action.type) {
       case "LOGIN":{
         this.login(action.userName, action.userId);
         break;
       }case "LOGOUT":{
         this.logout();
+        break;
+      }
+      case "STARTGAME":{
+        this.startGame(action.game);
         break;
       }
     }
