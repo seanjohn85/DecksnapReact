@@ -6,6 +6,8 @@ import Login from "./Login";
 import Register from "./Register";
 import user from "./User";
 import * as UserActions from "./actions/UserActions";
+import io from 'socket.io-client';
+import { Button, Card, Row, Col, SideNav, Navbar, NavItem} from 'react-materialize';
 
 class Main extends React.Component {
   constructor(){
@@ -14,18 +16,22 @@ class Main extends React.Component {
       loggedIn : false,
       gameMode : false,
     }
-    //UserActions.login("jow", 3);
+    var socket = io.connect('http://159.65.85.150');
   }
   componentWillMount(){
-    user.on("loggedIn", () => {
+  /*  user.on("loggedIn", () => {
       this.setState({loggedIn: true})
     });
+
+    user.on("loggedout", () => {
+      console.log("logged Out");
+      this.setState({loggedIn: false})
+    });*/
 
   }
 
   logout(){
-     //sessionStorage.setItem("userId",'');
-     //sessionStorage.clear();
+     UserActions.login("", "");
      <BrowserRouter>
      <Route exact path="/" component={Login}/>
      </BrowserRouter>
@@ -34,6 +40,19 @@ class Main extends React.Component {
 
   render() {
 
+    /*
+    <Navbar brand='logo' right>
+  <NavItem onClick={() => console.log('test click')}>Getting started</NavItem>
+  <ul className="right hide-on-med-and-down">
+  <li><NavLink exact to="/">Home</NavLink></li>
+  <li><NavLink to="/cards">Cards</NavLink></li>
+  <li><NavItem to="/register">Register</NavItem></li>
+  <li><button onClick ={this.logout}>LogOut</button></li>
+  </ul>
+
+</Navbar>
+*/
+
     console.log(`test ${user.user.userName}`);
     console.log(`test ${user.user.userId}`);
     return (
@@ -41,22 +60,17 @@ class Main extends React.Component {
       <BrowserRouter>
         <div>
 
-        <div className="navbar-fixed">
-    <nav>
-      <div className="nav-wrapper container">
-        <a href="#!" className="brand-logo">Logo</a>
+        <div className="navbar-fixed ">
+    <Navbar brand='logo' right   >
         <ul className="right hide-on-med-and-down">
         <li><NavLink exact to="/">Home</NavLink></li>
         <li><NavLink to="/cards">Cards</NavLink></li>
         <li><NavLink to="/register">Register</NavLink></li>
         <li><button onClick ={this.logout}>LogOut</button></li>
         </ul>
+    </Navbar>
 
-        <ul id="nav-mobile" className="sidenav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      </div>
-    </nav>
+
   </div>
 
 <div className="container">
@@ -70,7 +84,11 @@ class Main extends React.Component {
         </div>
       </BrowserRouter>
     );
+
+
+
   }
+
 }
 
 

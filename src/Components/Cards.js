@@ -37,15 +37,16 @@ class Cards extends React.Component {
       //bind functions to change loaded cards
       this.actors = this.actors.bind(this);
       this.superhero = this.superhero.bind(this);
+
   }
 
   componentWillMount() {
     //ensure user is logged in other wise redirect
-    if(user.user.userId){
+   if(user.user.userId){
       console.log(`userId is ${user.user.userId}`);
     }else{
-     this.setState({redirect: true});
-    }
+     //this.setState({redirect: true});
+   }
     //loads superhero cards
     this.superhero();
   }
