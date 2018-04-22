@@ -44,11 +44,13 @@ class Cards extends React.Component {
     //ensure user is logged in other wise redirect
    if(user.user.userId){
       console.log(`userId is ${user.user.userId}`);
+      //loads superhero cards
+      this.superhero();
     }else{
-     //this.setState({redirect: true});
+     this.setState({redirect: true});
+     console.log("not logged in");
    }
-    //loads superhero cards
-    this.superhero();
+
   }
 
 
@@ -85,9 +87,9 @@ class Cards extends React.Component {
 
   render() {
 
-    /*if(this.state.redirect){
+    if(this.state.redirect){
       return(<Redirect to={'/login'}/>)
-    }*/
+    }
 
 
     const list = this.state.cards.map( (c) => {

@@ -66,6 +66,7 @@ class Main extends React.Component {
         <li><NavLink exact to="/">Home</NavLink></li>
         <li><NavLink to="/cards">Cards</NavLink></li>
         <li><NavLink to="/register">Register</NavLink></li>
+        <li><NavLink to="/login">Login</NavLink></li>
         <li><button onClick ={this.logout}>LogOut</button></li>
         </ul>
     </Navbar>

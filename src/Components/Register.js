@@ -49,7 +49,7 @@ class Register extends React.Component {
         console.log(`Name ${response.Register.Username}`);
         console.log(`id ${response.Register.UserId}`);
 
-        //this.setState({redirect: true});
+        this.setState({redirect: true});
       }
     });
     //removes the default button action
@@ -58,13 +58,13 @@ class Register extends React.Component {
 
   render() {
     //redirect if the user is logged in
-   /*if (this.state.redirect) {
+   if (this.state.redirect) {
       return (<Redirect to={'/home'}/>)
     }
 
     if(user.user.userId){
       return (<Redirect to={'/home'}/>)
-    }*/
+    }
     //return the html input form
     return (
       <form onSubmit={this.handleSubmit}>
@@ -84,8 +84,8 @@ class Register extends React.Component {
           Dob:
           <input type="text" name="dob" value={this.state.dob} onChange={this.handleInputChange} />
         </label>
-        <button class="btn waves-effect waves-light" type="submit">Submit
-    <i class="material-icons right">send</i></button>
+        <button className="btn waves-effect waves-light" type="submit">Submit
+    <i className="material-icons right">send</i></button>
       </form>
     );
   }
