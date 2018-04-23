@@ -8,6 +8,8 @@ import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
 import GameCard from "./GameCard";
 import * as GameActions from "./actions/GameActions";
+import Modal from 'react-responsive-modal';
+
 
 
 
@@ -25,29 +27,35 @@ class Play extends React.Component {
       myCurrentCard : {},
       oppCurrentCard : {},
       iamP1 : false,
-      modalIsOpen: false,
+      open: false,
     }
 
     this.getCards = this.getCards.bind(this);
     this.getOppCards = this.getOppCards.bind(this);
     this.setMyCard = this.setMyCard.bind(this);
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
 
   }
 
   componentWillMount(){
-
+    //if there is not user id redirect as user is not logged in
     if(!user.user.userId){
        this.setState({redirect: true});
      }
+    //send a messsage to start a supperhero (cat3) game
     manager.play(parseInt(user.user.userId), 3);
+    //get users cards
     this.getCards(user.user.userId)
-
+    //when 2 players are present the socket will set the game details and opponents cards are downloaded here
     user.on("gameDetails", () => {
       console.log("game details loaded");
-      if (user.user.userId == user.user.game.play1){
+      if (parseInt(user.user.userId) === parseInt(user.user.game.play1)){
+        console.log("iam p1");
         this.getOppCards(user.user.game.play2);
         this.setState({iamP1: true});
       }else{
+        console.log("iam not p1");
         this.getOppCards(user.user.game.play1);
         this.setState({iamP1: false});
       }
@@ -62,13 +70,21 @@ class Play extends React.Component {
 
     user.on("result", () => {
       console.log("result");
-      this.openModal();
+      this.onOpenModal();
       wait(5000);
-      this.closeModal();
+      this.onCloseModal();
       this.setMyCard();
     });
 
   }
+
+  onOpenModal(){
+    this.setState({ open: true });
+  };
+
+  onCloseModal(){
+    this.setState({ open: false });
+  };
 
   getCards(id){
     //later the user id willl be passed in here
@@ -99,48 +115,52 @@ class Play extends React.Component {
 setMyCard(){
 
   for (let i = 0; i < this.state.cards.length; i++){
-    if(this.state.iamP1 && (user.user.game.p1card == this.state.cards[i].cardId)){
-      this.setState({myCurrentCard: this.state.cards[i]});
-      console.log("my card found");
-    }else if(user.user.game.p2card == this.state.cards[i].cardId){
-      console.log(this.state.cards[i].cardId);
-      console.log(user.user.game.p2card);
-      this.setState({myCurrentCard: this.state.cards[i]});
-      console.log("my card found");
+    if(this.state.iamP1){
+      if(parseInt(user.user.game.p1card) === parseInt(this.state.cards[i].cardId)){
+        console.log(`my card is ${this.state.cards[i].cardId} ${this.state.cards[i].name}`);
+        this.setState({myCurrentCard: this.state.cards[i]});
+      }
+      if(parseInt(user.user.game.p2card) === parseInt(this.state.oppCards[i].cardId)){
+        console.log(`opp card is ${this.state.oppCards[i].cardId} ${this.state.oppCards[i].name}`);
+        this.setState({oppCurrentCard: this.state.oppCards[i]});
+      }
+    }else{
+      if(parseInt(user.user.game.p2card) === parseInt(this.state.cards[i].cardId)){
+        console.log(`my card is ${this.state.cards[i].cardId} ${this.state.cards[i].name}`);
+        this.setState({myCurrentCard: this.state.cards[i]});
+      }
+      if(parseInt(user.user.game.p1card) === parseInt(this.state.oppCards[i].cardId)){
+        console.log(`opp card is ${this.state.oppCards[i].cardId} ${this.state.oppCards[i].name}`);
+        this.setState({oppCurrentCard: this.state.oppCards[i]});
+      }
     }
   }
 
-  for (let i = 0; i < this.state.oppCards.length; i++){
-    if(this.state.iamP1 && (user.user.game.p2card == this.state.oppCards[i].cardId)){
-      this.setState({oppCurrentCard: this.state.oppCards[i]});
-      console.log("opp card found");
-    }else if(user.user.game.p1card == this.state.oppCards[i].cardId){
-      this.setState({oppCurrentCard: this.state.oppCards[i]});
-      console.log("opp card found");
-      console.log(this.state.oppCards[i].cardId);
-      console.log(user.user.game.p1card);
-    }
-  }
+
+
 }
 
 
 
   render() {
-
+    //if the user is not loged in redirect from this page
     if(this.state.redirect){
       return(<Redirect to={'/login'}/>)
     }
 
     let props = {
       myCard : this.state.myCurrentCard,
+      oppCard : this.state.oppCurrentCard,
       cat : this.state.cat,
-      oppCard : this.state.oppCurrentCard
+
       }
 
     return (
       <div>
         <GameActions.CardView  {...props}/>
-
+        <Modal open={this.state.open} onClose={this.onCloseModal} little>
+          <h2>Simple centered modal</h2>
+        </Modal>
 
       </div>
 

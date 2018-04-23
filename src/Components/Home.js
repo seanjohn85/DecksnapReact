@@ -7,8 +7,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <h2>{user.user.userId}</h2>
-        asasddasds
+        <h1>Welcome To DeckSnap</h1>
       </div>
     );
   }

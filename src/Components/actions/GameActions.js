@@ -4,12 +4,18 @@ import manager from "../SocketManager";
 
 
 export function CardView(props){
+
   if (props.myCard.name){
 
     return(
       <div className="row">
         <div className="col s12 m8 offset-m2">
           <div className="card center-align">
+          {user.user.game.pturn === parseInt(user.user.userId) ? (
+        <h2>Your Turn</h2>
+      ) : (
+        <h2>Not Your Turn</h2>
+      )}
             <div className="card-content center-align ">
       <div className={"item gameCard " + props.cat.catName}>
         <img className="responsive-img" alt={props.myCard.name} src={'../images/'+ props.myCard.photo +'.jpg'}/>
@@ -59,7 +65,7 @@ export function CardView(props){
             </div>
             </div>
             </div>
-  
+
     );
   }
 
