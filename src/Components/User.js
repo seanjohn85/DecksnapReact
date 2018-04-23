@@ -19,6 +19,11 @@ class User extends EventEmitter{
     this.emit("loggedIn");
   }
 
+  showCard(){
+
+    this.emit("showCard");
+  }
+
   logout(){
     this.user.userName = "";
     this.user.userId = "";

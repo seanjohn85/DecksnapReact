@@ -7,7 +7,7 @@ import * as UserActions from "./actions/UserActions";
 class SocketManager extends EventEmitter{
   constructor(){
     super()
-    this.socket = io.connect('http://159.65.85.150');
+    this.socket = io.connect('http://165.227.228.2');
 
     this.socket.on('connectToRoom', msg => console.log(msg));
     this.socket.on('roomname', msg => console.log(msg));
@@ -19,7 +19,7 @@ class SocketManager extends EventEmitter{
     });
     this.socket.on('startgamenow', function () {
         console.log("startgamenow");
-        this.emit("showCard");
+        user.showCard();
 
     });
     this.socket.on('roomname', function () {
