@@ -6,6 +6,7 @@ import manager from "./SocketManager";
 import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
 import GameCard from "./GameCard";
+import * as GameActions from "./actions/GameActions";
 
 class Play extends React.Component {
 
@@ -53,7 +54,9 @@ class Play extends React.Component {
     //later the user id willl be passed in here
     let data = `userId=${id}&catId=3`;
     //get Cat from DB
-    GetCat('cat', 'catId=1').then((response) => {
+    //get Cat from DB
+    GetCat('cat', 'catId=3').then((response) => {
+      console.log(response.Categories.Cat);
       this.setState({cat: response.Categories.Cat});
     });
     GetCards('cards', data).then((response) => {
@@ -105,13 +108,20 @@ setMyCard(){
 
 
   render() {
+    let cat = this.state.cat;
+    let myCard = this.state.myCurrentCard;
+    let pic= `../images/${myCard.photo}.jpg`;
 
+    console.log
 
-    console.log(this.state.cards);
-    console.log(this.state.oppCards);
+    let props = {
+      myCard : this.state.myCurrentCard,
+      cat : this.state.cat
+      }
+
     return (
       <div>
-        <CardView  name={this.state.myCurrentCard.name}/>
+        <GameActions.CardView  {...props}/>
         <h2>"new game"</h2>
       </div>
     );
