@@ -1,13 +1,13 @@
 import React from "react";
 
 //used to create each card on the slider
-class Card extends React.Component {
+class GameCard extends React.Component {
 
   render() {
 
     return (
 
-      <div className= {'item ' + this.props.cat}>
+      <div className= { + this.props.cat}>
         <img alt={this.props.name} src={this.props.photo}/>
         <h3>{this.props.name}</h3>
         <div className="catLab" >
@@ -39,4 +39,4 @@ class Card extends React.Component {
   }
 }
 
-export default Card;
+export default GameCard;

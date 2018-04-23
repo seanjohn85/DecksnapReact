@@ -5,6 +5,7 @@ import { Button, Card, Row, Col, SideNav, Navbar, NavItem} from 'react-materiali
 import manager from "./SocketManager";
 import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
+import GameCard from "./GameCard";
 
 class Play extends React.Component {
 
@@ -110,10 +111,18 @@ setMyCard(){
     console.log(this.state.oppCards);
     return (
       <div>
+        <CardView  name={this.state.myCurrentCard.name}/>
         <h2>"new game"</h2>
       </div>
     );
   }
+}
+
+
+function CardView(props){
+  return(
+    <h2>{props.name}</h2>
+  );
 }
 
 export default Play;
