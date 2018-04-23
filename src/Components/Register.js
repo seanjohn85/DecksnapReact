@@ -27,7 +27,8 @@ class Register extends React.Component {
     console.log(`Input name ${name}. Input value ${value}.`);
 
     this.setState({
-     [name]: value
+     [name]: value,
+     error : ''
    });
   }
 
@@ -40,12 +41,11 @@ class Register extends React.Component {
        //used to add an error message
       if (response.Register.Result === "Taken"){
         console.log("user name already taken please try again");
+        this.setState({error : 'Username is already taken Please enter a new username.'});
       }
       //successiful login, session created and page redirected
       else{
         UserActions.login(response.Register.Username, response.Register.UserId);
-        //sessionStorage.setItem('userName', response.Register.Username);
-        //sessionStorage.setItem('userId', response.Register.UserId);
         console.log(`Name ${response.Register.Username}`);
         console.log(`id ${response.Register.UserId}`);
 
@@ -67,26 +67,78 @@ class Register extends React.Component {
     }
     //return the html input form
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Username:
-          <input type="text" name= "username" value={this.state.username} onChange={this.handleInputChange} />
-        </label>
-        <label>
-          Password:
-          <input type="password" name= "password" value={this.state.password} onChange={this.handleInputChange} />
-        </label>
-        <label>
-          Email:
-          <input type="text" name= "email" value={this.state.email} onChange={this.handleInputChange} />
-        </label>
-        <label>
-          Dob:
-          <input type="text" name="dob" value={this.state.dob} onChange={this.handleInputChange} />
-        </label>
-        <button className="btn waves-effect waves-light" type="submit">Submit
-    <i className="material-icons right">send</i></button>
-      </form>
+
+
+      <div className="valign-wrapper center-align">
+        <div className="valign">
+          <div className="container">
+            <div className="row">
+              <div className="col s12 m8 offset-m2">
+                <div className="card">
+                  <div className="card-content">
+                    <span className="card-title black-text">Sign In</span>
+                    <form>
+                      <div className="row">
+                        <div className="input-field col s12">
+                          <input
+                            type="text"
+                            name= "username" value={this.state.username} onChange={this.handleInputChange}
+                            className="validate"/>
+                          <label className="active">UserName</label>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="input-field col s12">
+                          <input
+                            type="password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                            className="validate"/>
+                          <label className="active">Password</label>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="input-field col s12">
+                          <input
+                            type="email"
+                            name= "email" value={this.state.email} onChange={this.handleInputChange}
+                            className="validate"/>
+                          <label className="active">Email</label>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="input-field col s12">
+                          <input
+                            type="date"
+                            name="dob" value={this.state.dob} onChange={this.handleInputChange}
+                            className="validate"/>
+                          <label className="active">DOB</label>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="input-field col s12 error">
+                          {this.state.error}
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="card-action">
+                    <button
+                      onClick={this.handleSubmit}
+                      className="btn waves-effect waves-light"
+                      type="submit">
+                      Register
+                      <i className="material-icons right">send</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     );
   }
 

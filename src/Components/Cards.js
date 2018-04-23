@@ -5,6 +5,7 @@ import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
 import OwlCarousel from 'react-owl-carousel';
 import user from "./User";
+import {CardTitle} from 'react-materialize';
 
 
 
@@ -95,6 +96,7 @@ class Cards extends React.Component {
     const list = this.state.cards.map( (c) => {
       console.log(this.state.cat);
       let cat = this.state.cat;
+      let catName = this.state.cat.catName;
       console.log(c.photo);
       let pic;
       if (c.customCard === '0'){
@@ -108,12 +110,21 @@ class Cards extends React.Component {
         });
     return (
       <div>
-        <h1>Your Cards:</h1>
+      <div className="container">
+        <div className="row">
+        <h1 className="cap">{user.user.userName}s {this.state.cat.catName} Cards:</h1>
         <OwlCarousel className="owl-theme" {...this.state.options}>
           {list}
         </OwlCarousel>
+        </div>
+        </div>
+        <div className="container">
+          <div className="row">
+          <h3>Select Category</h3>
         <button className="btn waves-effect waves-light" onClick ={this.actors}>Actors</button>
-        <button className="btn waves-effect waves-light" onClick ={this.superhero}>superhero</button>
+        <button className="marleft btn waves-effect waves-light" onClick ={this.superhero}>superhero</button>
+</div></div>
+
       </div>
 
     );

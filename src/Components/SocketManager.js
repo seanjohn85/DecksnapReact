@@ -7,8 +7,9 @@ import * as UserActions from "./actions/UserActions";
 class SocketManager extends EventEmitter{
   constructor(){
     super()
+    //connect to the socket server ip
     this.socket = io.connect('http://165.227.228.2');
-
+    //listen for soacket messages from the server
     this.socket.on('connectToRoom', msg => console.log(msg));
     this.socket.on('roomname', msg => console.log(msg));
     this.socket.on('gameloaded', function (name, p1, p2, turn, p1c, p2c) {

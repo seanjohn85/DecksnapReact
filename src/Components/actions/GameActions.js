@@ -7,8 +7,12 @@ export function CardView(props){
   if (props.myCard.name){
 
     return(
-      <div className={props.cat.catName}>
-        <img alt={props.myCard.name} src={'../images/'+ props.myCard.photo +'.jpg'}/>
+      <div className="row">
+        <div className="col s12 m8 offset-m2">
+          <div className="card center-align">
+            <div className="card-content center-align ">
+      <div className={"item gameCard " + props.cat.catName}>
+        <img className="responsive-img" alt={props.myCard.name} src={'../images/'+ props.myCard.photo +'.jpg'}/>
         <h2>{props.myCard.name}</h2>
         <div onClick = {() => clicked('cat1')} className="catLab mouseChange" >
           <h4>{props.myCard.cat1}</h4>
@@ -36,12 +40,26 @@ export function CardView(props){
         </div>
 
       </div>
+      </div>
+      </div>
+      </div>
+      </div>
 
 
     );
   }else{
     return(
-      <h2>hello</h2>
+      <div className="row">
+        <div className="col s12 m8 offset-m2">
+          <div className="card center-align">
+            <div className="card-content center-align ">
+            <h2>Waiting On Player 2</h2>
+            <div className="loader"></div>
+            </div>
+            </div>
+            </div>
+            </div>
+  
     );
   }
 
@@ -54,6 +72,8 @@ function clicked(cat){
   console.log('clicked' + cat);
   console.log(user.user.game.pturn);
   console.log(user.user.userId);
+
+  //if its this users turn inform server of user selection
   if(user.user.userId == user.user.game.pturn){
     console.log("my turn");
     manager.playermove(cat, parseInt(user.user.userId), user.user.game.gameName)

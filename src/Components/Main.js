@@ -7,7 +7,7 @@ import Register from "./Register";
 import Play from "./Play";
 import user from "./User";
 import * as UserActions from "./actions/UserActions";
-import { Button, Card, Row, Col, SideNav, Navbar, NavItem} from 'react-materialize';
+import { Button, Card, Row, Col, SideNav, Navbar, NavItem, Footer} from 'react-materialize';
 import manager from "./SocketManager";
 
 
@@ -19,6 +19,7 @@ class Main extends React.Component {
     this.state = {
       loggedIn : false,
       gameMode : false,
+      menu: [],
     }
 
   }
@@ -37,7 +38,7 @@ class Main extends React.Component {
       this.setState({loggedIn: false})
     });
 
-    
+
   }
 
   logout(){
@@ -73,7 +74,7 @@ class Main extends React.Component {
         <div>
 
         <div className="navbar-fixed ">
-    <Navbar container right brand='DeckSnap'  >
+    <Navbar container="true" right brand='DeckSnap'  >
 
         <ul className="right hide-on-med-and-down">
         <li><NavLink exact to="/">Home</NavLink></li>
@@ -87,7 +88,7 @@ class Main extends React.Component {
 
 
   </div>
-
+<main className="valign-wrapper ">
 <div className="container mainContent">
           <div className="content">
             <Route exact path="/" component={Home}/>
@@ -97,6 +98,10 @@ class Main extends React.Component {
             <Route path="/login" component={Login}/>
           </div>
         </div>
+        </main>
+        <Footer copyrights="&copy; 2018 DeckSnap">
+
+</Footer>
         </div>
       </BrowserRouter>
     );
