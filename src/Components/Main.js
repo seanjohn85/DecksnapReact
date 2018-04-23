@@ -10,8 +10,7 @@ import * as UserActions from "./actions/UserActions";
 import { Button, Card, Row, Col, SideNav, Navbar, NavItem, Footer} from 'react-materialize';
 import manager from "./SocketManager";
 
-
-
+//navbar and routing page
 
 class Main extends React.Component {
   constructor(){
@@ -24,15 +23,14 @@ class Main extends React.Component {
 
   }
   componentWillMount(){
-
+    //when the user logs on connect to the websocket
     user.on("loggedIn", () => {
       console.log("a user logged in");
       this.setState({loggedIn: true});
       manager.connectWithUserId(parseInt(user.user.userId));
-
-      //send.connectWithUserId(parseInt(user.user.userId));
     });
 
+    //when the user logs out change the state
     user.on("loggedout", () => {
       console.log("logged Out");
       this.setState({loggedIn: false})
@@ -51,23 +49,7 @@ class Main extends React.Component {
 
   render() {
 
-    /*
-    <Navbar brand='logo' right>
-  <NavItem onClick={() => console.log('test click')}>Getting started</NavItem>
-  <ul className="right hide-on-med-and-down">
-  <li><NavLink exact to="/">Home</NavLink></li>
-  <li><NavLink to="/cards">Cards</NavLink></li>
-  <li><NavItem to="/register">Register</NavItem></li>
-  <li><button onClick ={this.logout}>LogOut</button></li>
-  </ul>
 
-</Navbar>
-*/
-
-
-
-    console.log(`test ${user.user.userName}`);
-    console.log(`test ${user.user.userId}`);
     return (
 
       <BrowserRouter>
@@ -76,14 +58,16 @@ class Main extends React.Component {
         <div className="navbar-fixed ">
     <Navbar container="true" right brand='DeckSnap'  >
 
-        <ul className="right hide-on-med-and-down">
-        <li><NavLink exact to="/">Home</NavLink></li>
-        <li><NavLink to="/play">Play Game</NavLink></li>
-        <li><NavLink to="/cards">Cards</NavLink></li>
-        <li><NavLink to="/register">Register</NavLink></li>
-        <li><NavLink to="/login">Login</NavLink></li>
-        <li><button className="btn waves-effect waves-light" onClick ={this.logout}>LogOut</button></li>
-        </ul>
+    <ul className="right hide-on-med-and-down">
+      <li><NavLink exact to="/">Home</NavLink></li>
+      {this.state.loggedIn && <li><NavLink to="/play">Play</NavLink></li>}
+      {this.state.loggedIn && <li><NavLink to="/cards">Cards</NavLink></li>}
+      {this.state.loggedIn && <li><button className="btn waves-effect waves-light" onClick ={this.logout}>LogOut</button></li>}
+      {!this.state.loggedIn && <li><NavLink to="/register">Register</NavLink></li>}
+      {!this.state.loggedIn && <li><NavLink to="/login">Login</NavLink></li>}
+
+    </ul>
+
     </Navbar>
 
 

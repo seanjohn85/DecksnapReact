@@ -8,6 +8,7 @@ class Home extends React.Component {
     return (
       <div>
         <h2>{user.user.userId}</h2>
+        asasddasds
       </div>
     );
   }

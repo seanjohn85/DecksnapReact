@@ -1,5 +1,6 @@
 import React from "react";
 import user from "./User";
+import {Redirect} from "react-router-dom";
 import * as UserActions from "./actions/UserActions";
 import { Button, Card, Row, Col, SideNav, Navbar, NavItem} from 'react-materialize';
 import manager from "./SocketManager";
@@ -7,26 +8,16 @@ import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
 import GameCard from "./GameCard";
 import * as GameActions from "./actions/GameActions";
-import Modal from 'react-modal';
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
 
-Modal.setAppElement('#root');
 
 class Play extends React.Component {
 
   constructor(){
     super();
     this.state = {
+      //used to redirect if not logged in
+      redirect: false,
       cards: [],
       cat : [],
       player: "",
@@ -40,12 +31,14 @@ class Play extends React.Component {
     this.getCards = this.getCards.bind(this);
     this.getOppCards = this.getOppCards.bind(this);
     this.setMyCard = this.setMyCard.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+
   }
 
   componentWillMount(){
+
+    if(!user.user.userId){
+       this.setState({redirect: true});
+     }
     manager.play(parseInt(user.user.userId), 3);
     this.getCards(user.user.userId)
 
@@ -130,24 +123,13 @@ setMyCard(){
   }
 }
 
-openModal() {
-   this.setState({modalIsOpen: true});
- }
-
-
- closeModal() {
-   this.setState({modalIsOpen: false});
-
- }
-
- afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = '#f00';
-  }
-
 
 
   render() {
+
+    if(this.state.redirect){
+      return(<Redirect to={'/login'}/>)
+    }
 
     let props = {
       myCard : this.state.myCurrentCard,
@@ -158,29 +140,6 @@ openModal() {
     return (
       <div>
         <GameActions.CardView  {...props}/>
-
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-
-          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-          <button onClick={this.closeModal}>close</button>
-          <div>{user.user.game.handWon}</div>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
-        </Modal>
-
-
-
 
 
       </div>

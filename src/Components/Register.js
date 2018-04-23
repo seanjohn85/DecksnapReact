@@ -76,7 +76,7 @@ class Register extends React.Component {
               <div className="col s12 m8 offset-m2">
                 <div className="card">
                   <div className="card-content">
-                    <span className="card-title black-text">Sign In</span>
+                    <span className="card-title black-text">Sign Up</span>
                     <form>
                       <div className="row">
                         <div className="input-field col s12">
