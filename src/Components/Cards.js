@@ -112,8 +112,8 @@ class Cards extends React.Component {
         <OwlCarousel className="owl-theme" {...this.state.options}>
           {list}
         </OwlCarousel>
-        <button onClick ={this.actors}>Actors</button>
-        <button onClick ={this.superhero}>superhero</button>
+        <button className="btn waves-effect waves-light" onClick ={this.actors}>Actors</button>
+        <button className="btn waves-effect waves-light" onClick ={this.superhero}>superhero</button>
       </div>
 
     );

@@ -7,6 +7,20 @@ import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
 import GameCard from "./GameCard";
 import * as GameActions from "./actions/GameActions";
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
+Modal.setAppElement('#root');
 
 class Play extends React.Component {
 
@@ -19,12 +33,16 @@ class Play extends React.Component {
       oppCards : [],
       myCurrentCard : {},
       oppCurrentCard : {},
-      iamP1 : false
+      iamP1 : false,
+      modalIsOpen: false,
     }
 
     this.getCards = this.getCards.bind(this);
     this.getOppCards = this.getOppCards.bind(this);
     this.setMyCard = this.setMyCard.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentWillMount(){
@@ -43,8 +61,17 @@ class Play extends React.Component {
 
     });
 
+
     user.on("showCard", () => {
       console.log("show card 1");
+      this.setMyCard();
+    });
+
+    user.on("result", () => {
+      console.log("result");
+      this.openModal();
+      wait(5000);
+      this.closeModal();
       this.setMyCard();
     });
 
@@ -103,36 +130,73 @@ setMyCard(){
   }
 }
 
+openModal() {
+   this.setState({modalIsOpen: true});
+ }
 
+
+ closeModal() {
+   this.setState({modalIsOpen: false});
+
+ }
+
+ afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    this.subtitle.style.color = '#f00';
+  }
 
 
 
   render() {
-    let cat = this.state.cat;
-    let myCard = this.state.myCurrentCard;
-    let pic= `../images/${myCard.photo}.jpg`;
-
-    console.log
 
     let props = {
       myCard : this.state.myCurrentCard,
-      cat : this.state.cat
+      cat : this.state.cat,
+      oppCard : this.state.oppCurrentCard
       }
 
     return (
       <div>
         <GameActions.CardView  {...props}/>
-        <h2>"new game"</h2>
+
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+
+          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+          <button onClick={this.closeModal}>close</button>
+          <div>{user.user.game.handWon}</div>
+          <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+          </form>
+        </Modal>
+
+
+
+
+
       </div>
+
     );
   }
 }
 
-
-function CardView(props){
-  return(
-    <h2>{props.name}</h2>
-  );
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
 }
+
+
 
 export default Play;

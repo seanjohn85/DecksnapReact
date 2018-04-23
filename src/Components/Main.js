@@ -37,6 +37,7 @@ class Main extends React.Component {
       this.setState({loggedIn: false})
     });
 
+    
   }
 
   logout(){
@@ -62,6 +63,8 @@ class Main extends React.Component {
 </Navbar>
 */
 
+
+
     console.log(`test ${user.user.userName}`);
     console.log(`test ${user.user.userId}`);
     return (
@@ -70,21 +73,22 @@ class Main extends React.Component {
         <div>
 
         <div className="navbar-fixed ">
-    <Navbar brand='logo' right   >
+    <Navbar container right brand='DeckSnap'  >
+
         <ul className="right hide-on-med-and-down">
         <li><NavLink exact to="/">Home</NavLink></li>
         <li><NavLink to="/play">Play Game</NavLink></li>
         <li><NavLink to="/cards">Cards</NavLink></li>
         <li><NavLink to="/register">Register</NavLink></li>
         <li><NavLink to="/login">Login</NavLink></li>
-        <li><button onClick ={this.logout}>LogOut</button></li>
+        <li><button className="btn waves-effect waves-light" onClick ={this.logout}>LogOut</button></li>
         </ul>
     </Navbar>
 
 
   </div>
 
-<div className="container">
+<div className="container mainContent">
           <div className="content">
             <Route exact path="/" component={Home}/>
             <Route path="/play" component={Play}/>

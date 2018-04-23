@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-
+  color: #2d3e50;
 }
 
 
@@ -107,4 +107,51 @@ body {
 
 .catLab:nth-child(7), .catLab:nth-child(8) {
     border-bottom: none;
+}
+
+.mainContent{
+  margin-top: 60px;
+}
+
+/* nav styles */
+.nav-wrapper{
+  background-color: #2d3e50;
+}
+
+.brand-logo{
+  color: #2dcc70!important;
+}
+
+
+.btn{
+      background-color: #2dcc70!important;
+      color: #2d3e50;
+}
+.btn:hover{
+      opacity: 0.85;
+}
+
+
+/*game screen*/
+
+mouseChange:hover{
+ cursor: pointer;
+}
+
+/*  forms*/
+
+.valign-wrapper{
+  width:100%;
+  height:100%;
+  position: relative;
+
+}
+
+.valign{
+
+  width:100%;
+}
+
+.error{
+  color: #ef5350!important;
 }

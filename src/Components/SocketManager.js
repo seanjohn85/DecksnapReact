@@ -13,7 +13,7 @@ class SocketManager extends EventEmitter{
     this.socket.on('roomname', msg => console.log(msg));
     this.socket.on('gameloaded', function (name, p1, p2, turn, p1c, p2c) {
         console.log("startgamenow");
-        let game = {"gameName": name, "play1" : p1, "play2" : p2, "pturn": turn, "p1card" :p1c, "p2card" : p2c};
+        let game = {"gameName": name, "play1" : p1, "play2" : p2, "pturn": turn, "p1card" :p1c, "p2card" : p2c, "p1Remaining" : 15, "p2Remaining" : 15, "handWon" : 0, "move" : ""};
         UserActions.startGame(game);
 
     });
@@ -26,6 +26,14 @@ class SocketManager extends EventEmitter{
         console.log("roomname");
 
     });
+    this.socket.on('result', function (p1Cards, p2Cards, turn, p1card, p2card, move) {
+          console.log("startgamenow");
+
+          user.upgateGame(p1Cards, p2Cards, turn, p1card, p2card, move);
+
+      });
+
+
 
 
   }

@@ -16,3 +16,6 @@ ReactDOM.render(
   <Main/>,
   document.getElementById("root")
 );
+//center nav content
+let element = document.getElementsByClassName("col");
+  element[0].classList.add("container");
