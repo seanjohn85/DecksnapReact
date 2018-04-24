@@ -33,7 +33,10 @@ class SocketManager extends EventEmitter{
           user.upgateGame(p1Cards, p2Cards, turn, p1card, p2card, won, move);
 
       });
+      this.socket.on('winnerid', function (winner) {
+            console.log(`winner id ${winner}`);
 
+        });
 
 
 
