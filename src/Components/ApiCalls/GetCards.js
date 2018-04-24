@@ -21,6 +21,4 @@ export function GetCards(type, registerData) {
             .catch(error => reject(error))
     });
 
-
-    
 }

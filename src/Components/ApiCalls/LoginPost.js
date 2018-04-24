@@ -20,6 +20,4 @@ export function LoginPost(type, user) {
             .catch(error => reject(error))
     });
 
-
-
 }

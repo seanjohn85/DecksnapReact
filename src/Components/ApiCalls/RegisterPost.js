@@ -20,6 +20,4 @@ export function RegisterPost(type, cardsRequested) {
             .catch(error => reject(error))
     });
 
-
-    
 }
