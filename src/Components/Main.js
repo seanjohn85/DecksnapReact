@@ -4,6 +4,7 @@ import Home from "./Home";
 import Cards from "./Cards";
 import Login from "./Login";
 import Register from "./Register";
+import GameOver from "./GameOver";
 import Play from "./Play";
 import user from "./User";
 import * as UserActions from "./actions/UserActions";
@@ -80,6 +81,7 @@ class Main extends React.Component {
             <Route path="/cards" component={Cards}/>
             <Route path="/register" component={Register}/>
             <Route path="/login" component={Login}/>
+            <Route path="/gameover" component={GameOver}/>
           </div>
         </div>
         </main>

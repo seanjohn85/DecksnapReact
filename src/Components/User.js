@@ -9,7 +9,8 @@ class User extends EventEmitter{
       userName : "",
       userId : "",
       game: {},
-      gameMode : false
+      gameMode : false,
+      winner : ""
     }
   }
 
@@ -33,6 +34,11 @@ class User extends EventEmitter{
     this.user.game.handWon = won;
     this.user.game.move = move;
     this.emit("result");
+  }
+
+  win(win){
+    this.user.winner = win;
+    this.emit("winner");
   }
 
   logout(){

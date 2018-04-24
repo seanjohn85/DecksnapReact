@@ -35,6 +35,7 @@ class SocketManager extends EventEmitter{
       });
       this.socket.on('winnerid', function (winner) {
             console.log(`winner id ${winner}`);
+            user.win(winner);
 
         });
 
