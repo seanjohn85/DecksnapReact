@@ -11,8 +11,6 @@ import * as GameActions from "./actions/GameActions";
 import Modal from 'react-responsive-modal';
 
 
-
-
 class Play extends React.Component {
 
   constructor(){
@@ -71,19 +69,20 @@ class Play extends React.Component {
     user.on("result", () => {
       console.log("result");
       this.onOpenModal();
-      wait(5000);
-      this.onCloseModal();
-      this.setMyCard();
+      setTimeout(this.onCloseModal, 5000);
+
     });
 
   }
 
   onOpenModal(){
     this.setState({ open: true });
+    console.log(`hand winner id ${user.user.game.handWon}`);
   };
 
   onCloseModal(){
     this.setState({ open: false });
+    this.setMyCard();
   };
 
   getCards(id){
@@ -136,13 +135,10 @@ setMyCard(){
     }
   }
 
-
-
 }
 
-
-
   render() {
+
     //if the user is not loged in redirect from this page
     if(this.state.redirect){
       return(<Redirect to={'/login'}/>)
@@ -159,7 +155,7 @@ setMyCard(){
       <div>
         <GameActions.CardView  {...props}/>
         <Modal open={this.state.open} onClose={this.onCloseModal} little>
-          <h2>Simple centered modal</h2>
+        test
         </Modal>
 
       </div>
@@ -168,6 +164,7 @@ setMyCard(){
   }
 }
 
+//time delay
 function wait(ms){
    var start = new Date().getTime();
    var end = start;

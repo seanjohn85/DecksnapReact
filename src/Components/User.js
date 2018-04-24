@@ -23,13 +23,14 @@ class User extends EventEmitter{
     this.emit("showCard");
   }
 
-  upgateGame(p1Cards, p2Cards, turn, p1card, p2card, move){
+  upgateGame(p1Cards, p2Cards, turn, p1card, p2card, won, move){
 
     this.user.game.pturn = turn;
     this.user.game.p1card = p1card;
     this.user.game.p2card = p2card;
     this.user.game.p1Remaining = p1Cards;
     this.user.game.p2Remaining = p2Cards;
+    this.user.game.handWon = won;
     this.user.game.move = move;
     this.emit("result");
   }

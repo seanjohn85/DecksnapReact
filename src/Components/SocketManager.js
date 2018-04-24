@@ -27,10 +27,10 @@ class SocketManager extends EventEmitter{
         console.log("roomname");
 
     });
-    this.socket.on('result', function (p1Cards, p2Cards, turn, p1card, p2card, move) {
+    this.socket.on('result', function (p1Cards, p2Cards, turn, p1card, p2card, won, move) {
           console.log("startgamenow");
 
-          user.upgateGame(p1Cards, p2Cards, turn, p1card, p2card, move);
+          user.upgateGame(p1Cards, p2Cards, turn, p1card, p2card, won, move);
 
       });
 
