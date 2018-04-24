@@ -2,11 +2,9 @@ import React from "react";
 import user from "./User";
 import {Redirect} from "react-router-dom";
 import * as UserActions from "./actions/UserActions";
-import { Button, Card, Row, Col, SideNav, Navbar, NavItem} from 'react-materialize';
 import manager from "./SocketManager";
 import {GetCards} from './ApiCalls/GetCards';
 import {GetCat} from './ApiCalls/GetCat';
-import GameCard from "./GameCard";
 import * as GameActions from "./actions/GameActions";
 import Modal from 'react-responsive-modal';
 
@@ -155,7 +153,18 @@ setMyCard(){
       <div>
         <GameActions.CardView  {...props}/>
         <Modal open={this.state.open} onClose={this.onCloseModal} little>
-        test
+        {parseInt(user.user.game.handWon)=== parseInt(user.user.userId) ? (
+      <h2>You Won</h2>) : (
+      <h2>You Lost</h2>
+    )}
+    <div>
+      <img className="responsive-img" alt={this.state.myCurrentCard.name} src={'../images/'+ this.state.myCurrentCard.photo +'.jpg'}/>
+    </div>
+
+    <div>
+      <img className="responsive-img" alt={this.state.oppCurrentCard.name} src={'../images/'+ this.state.oppCurrentCard.photo +'.jpg'}/>
+    </div>
+
         </Modal>
 
       </div>
@@ -164,14 +173,7 @@ setMyCard(){
   }
 }
 
-//time delay
-function wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
-  }
-}
+
 
 
 

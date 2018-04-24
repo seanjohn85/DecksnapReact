@@ -201,13 +201,23 @@ mouseChange:hover{
 }
 
 
+.Modal-modal-0-1-3{
+  background-color: #2d3e50!important;
+  color: #2dcc70!important;
+  text-align: center;
+}
+.Modal-closeIcon-0-1-4{
+  visibility: hidden;
+}
+
+
 
 
 footer{
-  position: fixed;
+  /*position: fixed;
     left: 0;
     bottom: 0;
-    width: 100%;
+    width: 100%;*/
     background-color: #2d3e50!important;
 
   }
