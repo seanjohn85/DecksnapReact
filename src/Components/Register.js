@@ -15,16 +15,17 @@ class Register extends React.Component {
   }
 
   componentWillMount() {
-
+    //rerirects if the user is already logged in
+    user.on("loggedIn", () => {
+      this.setState({ redirect: true });
+    });
   }
 
   //stores the elements when the user change sthe data in the form
   handleInputChange(event) {
    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+   const value = target.type === 'checkbox' ? target.checked : target.value;
    const name = target.name;
-
-    console.log(`Input name ${name}. Input value ${value}.`);
 
     this.setState({
      [name]: value,
@@ -59,16 +60,14 @@ class Register extends React.Component {
   render() {
     //redirect if the user is logged in
    if (this.state.redirect) {
-      return (<Redirect to={'/home'}/>)
+      return (<Redirect to={'/friends'}/>)
     }
 
     if(user.user.userId){
-      return (<Redirect to={'/home'}/>)
+      return (<Redirect to={'/friends'}/>)
     }
     //return the html input form
     return (
-
-
       <div className="valign-wrapper center-align">
         <div className="valign">
           <div className="container">

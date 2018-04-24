@@ -63,11 +63,11 @@ class Login extends React.Component {
     console.log(this.state.error);
     //redirect if the user is logged in
     if (this.state.redirect) {
-      return <Redirect to={"/home"} />;
+      return <Redirect to={"/friends"} />;
     }
 
     if (user.user.userId) {
-      return <Redirect to={"/home"} />;
+      return <Redirect to={"/friends"} />;
     }
     //return the html input form
     return (

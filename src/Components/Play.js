@@ -39,6 +39,10 @@ class Play extends React.Component {
     if (!user.user.userId) {
       this.setState({ redirect: true });
     }
+    //whwn the user loggs out
+    user.on("loggedout", () => {
+      this.setState({ redirect: true });
+    });
     //send a messsage to start a supperhero (cat3) game
     manager.play(parseInt(user.user.userId), 3);
     //get users cards

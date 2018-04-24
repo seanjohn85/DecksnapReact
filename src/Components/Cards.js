@@ -51,6 +51,10 @@ class Cards extends React.Component {
      this.setState({redirect: true});
      console.log("not logged in");
    }
+   //whwn the user loggs out
+   user.on("loggedout", () => {
+     this.setState({ redirect: true });
+   });
 
   }
 

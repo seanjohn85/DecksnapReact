@@ -5,6 +5,7 @@ import Cards from "./Cards";
 import Login from "./Login";
 import Register from "./Register";
 import GameOver from "./GameOver";
+import Friends from "./Friends";
 import Play from "./Play";
 import user from "./User";
 import * as UserActions from "./actions/UserActions";
@@ -42,9 +43,6 @@ class Main extends React.Component {
 
   logout(){
      UserActions.logout();
-     <BrowserRouter>
-     <Route exact path="/" component={Login}/>
-     </BrowserRouter>
    }
 
 
@@ -61,6 +59,7 @@ class Main extends React.Component {
 
     <ul className="right hide-on-med-and-down">
       <li><NavLink exact to="/">Home</NavLink></li>
+      {this.state.loggedIn && <li><NavLink to="/friends">Friends</NavLink></li>}
       {this.state.loggedIn && <li><NavLink to="/play">Play</NavLink></li>}
       {this.state.loggedIn && <li><NavLink to="/cards">Cards</NavLink></li>}
       {this.state.loggedIn && <li><button className="btn waves-effect waves-light" onClick ={this.logout}>LogOut</button></li>}
@@ -82,6 +81,7 @@ class Main extends React.Component {
             <Route path="/register" component={Register}/>
             <Route path="/login" component={Login}/>
             <Route path="/gameover" component={GameOver}/>
+            <Route path="/friends" component={Friends}/>
           </div>
         </div>
         </main>
