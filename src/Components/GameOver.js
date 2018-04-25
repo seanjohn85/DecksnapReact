@@ -16,23 +16,20 @@ class GameOver extends React.Component {
                 <img
                   className="responsive-img"
                   alt="draw"
-                  src={"../images/draw.jpeg"}
-                />
+                  src={"../images/draw.jpeg"}/>
               )}
               {user.user.winner == user.user.userId && (
                 <img
                   className="responsive-img"
                   alt="draw"
-                  src={"../images/win.gif"}
-                />
+                  src={"../images/win.gif"}/>
               )}
               {user.user.winner !== "draw" &&
                 user.user.winner != user.user.userId && (
                   <img
                     className="responsive-img"
                     alt="draw"
-                    src={"../images/lose.jpg"}
-                  />
+                    src={"../images/lose.jpg"}/>
                 )}
             </div>
           </div>

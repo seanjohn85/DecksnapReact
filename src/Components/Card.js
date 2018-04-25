@@ -5,6 +5,7 @@ class Card extends React.Component {
 
   render() {
 
+    //returns html of view card object
     return (
 
       <div className= {'item ' + this.props.cat}>

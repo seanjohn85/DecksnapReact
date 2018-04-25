@@ -214,16 +214,20 @@ class Play extends React.Component {
             <h2>You Lost</h2>
           )}
           <Col s={6}>
-            <img className="responsive-img"
+            <img
+              className="responsive-img"
               alt={this.state.myCurrentCard.name}
-              src={"../images/" + this.state.myCurrentCard.photo + ".jpg"}/>
+              src={"../images/" + this.state.myCurrentCard.photo + ".jpg"}
+            />
             <div className="msgbox">{userMsg}</div>
           </Col>
 
           <Col s={6}>
-            <img className="responsive-img"
+            <img
+              className="responsive-img"
               alt={this.state.oppCurrentCard.name}
-              src={"../images/" + this.state.oppCurrentCard.photo + ".jpg"}/>
+              src={"../images/" + this.state.oppCurrentCard.photo + ".jpg"}
+            />
             <div className="msgbox">{oppMsg}</div>
           </Col>
         </Modal>

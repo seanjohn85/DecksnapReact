@@ -1,31 +1,31 @@
-import {EventEmitter} from "events";
+import { EventEmitter } from "events";
 import Dispatcher from "./Dispatcher";
 
-
-class User extends EventEmitter{
-  constructor(){
-    super()
-    this.user ={
-      userName : "",
-      userId : "",
+//global state class
+class User extends EventEmitter {
+  constructor() {
+    super();
+    //global state
+    this.user = {
+      userName: "",
+      userId: "",
       game: {},
-      gameMode : false,
-      winner : ""
-    }
+      gameMode: false,
+      winner: ""
+    };
   }
-
-  login(userName, userId){
+  //when user logs in
+  login(userName, userId) {
     this.user.userName = userName;
     this.user.userId = userId;
     this.emit("loggedIn");
   }
 
-  showCard(){
+  showCard() {
     this.emit("showCard");
   }
-
-  upgateGame(p1Cards, p2Cards, turn, p1card, p2card, won, move){
-
+  //update the gsme object
+  upgateGame(p1Cards, p2Cards, turn, p1card, p2card, won, move) {
     this.user.game.pturn = turn;
     this.user.game.p1card = p1card;
     this.user.game.p2card = p2card;
@@ -35,43 +35,45 @@ class User extends EventEmitter{
     this.user.game.move = move;
     this.emit("result");
   }
-
-  win(win){
+  //emit to load win screen
+  win(win) {
     this.user.winner = win;
     this.emit("winner");
   }
-
-  logout(){
+  //when user logs out emit for redirects
+  logout() {
     this.user.userName = "";
     this.user.userId = "";
     this.emit("loggedout");
   }
-  playGame(){
+  playGame() {
     this.user.gameMode = true;
     this.emit("gameOn");
   }
-
-  quitGame(){
+//when game is ready to be quit
+  quitGame() {
     this.user.gameMode = false;
     this.emit("gameOff");
   }
-  startGame(game){
+  //when game is ready to be started set game and emoit
+  startGame(game) {
     this.user.game = game;
     console.log(game);
     this.emit("gameDetails");
   }
-
-  handleActions(action){
+  //handles user actions  all funtions should be added here
+  handleActions(action) {
     console.log("action recieved");
     switch (action.type) {
-      case "LOGIN":{
+      case "LOGIN": {
         this.login(action.userName, action.userId);
         break;
-      }case "LOGOUT":{
+      }
+      case "LOGOUT": {
         this.logout();
         break;
       }
-      case "STARTGAME":{
+      case "STARTGAME": {
         this.startGame(action.game);
         break;
       }
@@ -81,6 +83,5 @@ class User extends EventEmitter{
 
 const user = new User();
 Dispatcher.register(user.handleActions.bind(user));
-
 
 export default user;

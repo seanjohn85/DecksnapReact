@@ -68,8 +68,7 @@ class Friends extends React.Component {
           }
           actions={[
             <a href="http://www.apple.com">Now Availible on app store</a>
-          ]}
-        >
+          ]}>
           <ul>
             <li>Find Friends</li>
             <li>Add Friends</li>
