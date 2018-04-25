@@ -53,6 +53,7 @@ class Main extends React.Component {
 
       <BrowserRouter>
         <div>
+        <header>
 
         <div className="navbar-fixed ">
     <Navbar container="true" right brand='DeckSnap'  >
@@ -72,6 +73,8 @@ class Main extends React.Component {
 
 
   </div>
+
+  </header>
 <main className="valign-wrapper ">
 <div className="container mainContent">
           <div className="content">
@@ -84,11 +87,13 @@ class Main extends React.Component {
             <Route path="/friends" component={Friends}/>
           </div>
         </div>
+
         </main>
         <Footer copyrights="&copy; 2018 DeckSnap">
 
 </Footer>
         </div>
+
       </BrowserRouter>
     );
 

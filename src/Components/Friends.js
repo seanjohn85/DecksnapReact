@@ -1,7 +1,7 @@
 import React from "react";
 import user from "./User";
 import { Redirect } from "react-router-dom";
-import { Card, CardTitle } from "react-materialize";
+import { Card, CardTitle, MediaBox } from "react-materialize";
 
 /*
 to be added later
@@ -78,6 +78,7 @@ class Friends extends React.Component {
             <li>...and much more</li>
           </ul>
         </Card>
+        <MediaBox className="responsive-img" src="../images/banner.jpg" caption="Now Availible on iOS" width="100%"/>
       </div>
     );
   }
